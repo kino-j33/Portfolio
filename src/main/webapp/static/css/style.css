@@ -1,0 +1,733 @@
+/* =========================================
+   Font Face (Variable Fonts)
+========================================= */
+@font-face {
+  font-style: normal;
+  font-weight: 100 900;
+  font-family: "Noto Sans JP";
+  font-display: swap;
+  src: url("../fonts/NotoSansJP-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 100 900;
+  font-family: "Playfair Display";
+  font-display: swap;
+  src: url("../fonts/PlayfairDisplay-VariableFont_wght.ttf") format("truetype");
+}
+
+/* =========================================
+   Variables & Reset
+========================================= */
+:root {
+  /* Colors */
+  --c-bg: #ffffff;
+  --c-bg-sub: #fafafa;
+  --c-bg-video: #333;
+  --c-warning-bg: #fff8e1;
+  --c-text-main: #333333;
+  --c-text-light: #888888;
+  --c-text-muted: #aaaaaa;
+  --c-text-link: #ffffff;
+  --c-border: #eeeeee;
+  --c-border-input: #dddddd;
+  --c-border-warning: #f0c36d;
+  --c-border-dark: #e5e5e5;
+  --c-accent-orange: #e67e22;
+  --c-modal-close: #666666;
+  --c-modal-close-hover: #000000;
+  --rgb-bg: 255, 255, 255;
+  --rgb-black: 0, 0, 0;
+
+  /* Fonts */
+  --font-base: "Noto Sans JP", sans-serif;
+  --font-en: "Playfair Display", serif;
+
+  /* Layout & Breakpoints */
+  --content-width: 1000px;
+  --section-spacing: 120px;
+
+  /* Modalでのガタつき対策 */
+  scrollbar-gutter: stable;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* フォントの表示を滑らかにする */
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding-top: 80px;
+  background-color: var(--c-bg);
+  color: var(--c-text-main);
+  line-height: 2;
+  font-family: var(--font-base);
+  letter-spacing: .03em;
+  -webkit-font-smoothing: antialiased; /* 文字の輪郭をなめらかに表示する */
+}
+
+/* モーダル表示時に背後のスクロールを禁止 */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity .3s;
+}
+
+a:hover {
+  opacity: .6;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* =========================================
+   Common Components
+========================================= */
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: var(--section-spacing) 0;
+}
+
+.section-title {
+  margin-bottom: 3rem;
+  font-weight: 450;
+  font-size: 2.5rem;
+  font-family: var(--font-en);
+  text-align: center;
+}
+
+/* =========================================
+   Header
+========================================= */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid var(--c-border);
+  background-color: rgba(var(--rgb-bg), .95);
+  backdrop-filter: blur(5px); /* 要素が重なった際のぼかし */
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--content-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.site-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+  font-family: var(--font-en);
+  letter-spacing: .05em;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav a {
+  color: var(--c-text-light);
+  font-size: .9rem;
+}
+
+.nav a:hover {
+  color: var(--c-text-main);
+}
+
+/* =========================================
+   Hero Section
+========================================= */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100dvh - 80px);
+  padding: 0 24px;
+  text-align: center;
+}
+
+.hero-title {
+  margin-bottom: 2rem;
+  font-weight: 450;
+  font-size: 4rem;
+  font-family: var(--font-en);
+  letter-spacing: .1em;
+}
+
+.hero-text {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--c-text-light);
+  font-size: 1rem;
+}
+
+/* =========================================
+   Two Column Layout
+========================================= */
+.two-column {
+  display: grid;
+  align-items: center;
+  gap: 60px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.two-column.reverse .column-image {
+  order: 2;
+}
+
+.two-column.reverse .column-text {
+  order: 1;
+}
+
+.column-image img {
+  width: 100%;
+  background-color: var(--c-bg-sub);
+  aspect-ratio: 3 / 4; /* 縦横比：横 / 縦 */
+  object-fit: cover;
+}
+
+.column-text h2 {
+  margin-bottom: 1.5rem;
+  font-weight: 450;
+  font-size: 2rem;
+  font-family: var(--font-en);
+}
+
+.column-text p {
+  margin-bottom: 1.5rem;
+  color: var(--c-text-light);
+  font-size: .95rem;
+  text-align: justify;
+}
+
+/* Skills List */
+.skills-block {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--c-border);
+}
+
+.skills-block h3 {
+  margin-bottom: 1rem;
+  font-weight: 400;
+  font-size: 1.1rem;
+  font-family: var(--font-en);
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+}
+
+.skills-list li {
+  padding: 6px 16px;
+  border: 1px solid var(--c-border);
+  border-radius: 999px;
+  background-color: var(--c-bg-sub);
+  color: var(--c-text-main);
+  font-size: .8rem;
+}
+
+/* =========================================
+   Works Section
+========================================= */
+.bg-gray {
+  background-color: var(--c-bg-sub);
+}
+
+.works-grid {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.work-card {
+  padding: 20px;
+  border: 1px solid var(--c-border);
+  background: var(--c-bg);
+  cursor: pointer;
+  transition: box-shadow .4s;
+}
+
+.work-card:hover {
+  box-shadow: 0 10px 30px rgba(var(--rgb-black), .08);
+}
+
+.work-thumb {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  background-color: var(--c-border);
+  aspect-ratio: 4 / 3;
+}
+
+.work-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-card h3 {
+  margin-bottom: .5rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.work-card p {
+  margin-bottom: .25rem;
+  color: var(--c-text-light);
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.work-card .date {
+  margin-top: .5rem;
+  color: var(--c-text-muted);
+  font-size: .75rem;
+  font-family: var(--font-en);
+}
+
+/* =========================================
+   Modal Base
+========================================= */
+.modal {
+  /* dialog標準スタイルのリセット */
+  border: none;
+  background: transparent;
+  padding: 0;
+  max-width: 900px;
+  width: 90%;
+  margin: auto;
+}
+
+/* オーバーレイ */
+.modal::backdrop {
+  background: rgba(var(--rgb-black), .4);
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+}
+
+/* ダイアログが開いた時のアニメーション */
+.modal[open] {
+  animation: modalFadeUp .35s ease forwards;
+}
+
+/* =========================================
+   Modal Content
+========================================= */
+.modal-content {
+  position: relative;
+  isolation: isolate; /* z-indexの影響範囲の制限 */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--c-bg-sub);
+  overscroll-behavior: contain; /* 背景スクロールを防止 */
+}
+
+@keyframes modalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  border: none;
+  background: none;
+  color: var(--c-modal-close);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--c-modal-close-hover);
+}
+
+.modal-body {
+  display: grid;
+  align-items: start;
+  gap: 30px;
+  grid-template-columns: 2fr 1fr;
+}
+
+.modal-image {
+  height: 100%;
+}
+
+.modal-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--c-bg-video);
+}
+
+.bg-video {
+  width: calc(100% + 1px);
+  height: 100%;
+  z-index: -1;
+}
+
+.modal-text {
+  max-height: 60dvh;
+  padding: 0 16px 45px 0;
+  overflow-y: auto;
+}
+
+.modal-title {
+  position: sticky;
+  top: 0;
+  margin-bottom: 11px;
+  padding: 45px 0 5px;
+  background: var(--c-bg-sub);
+  color: var(--c-text-main);
+  font-size: 1.2rem;
+}
+
+.modal-languages {
+  margin-bottom: 16px;
+  color: var(--c-text-light);
+  font-size: .85rem;
+}
+
+.modal-description {
+  padding-top: 16px;
+  border-top: 1px solid var(--c-border-dark);
+  color: var(--c-text-main);
+  font-size: .95rem;
+  line-height: 1.7;
+}
+
+.modal-subtitle {
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.modal-paragraph {
+  margin-top: 3px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.modal-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.modal-links a {
+  padding: 8px 14px;
+  border: 1px solid var(--c-border-input);
+  border-radius: 4px;
+  color: var(--c-text-main);
+  font-size: .75rem;
+  transition: background .2s, color .2s;
+}
+
+.modal-links a:hover {
+  background: var(--c-text-main);
+  color: var(--c-text-link);
+}
+
+.demo-login-info {
+  margin-top: 20px;
+  padding: 8px 14px;
+  border: 1px solid var(--c-border-input);
+  border-radius: 4px;
+  color: var(--c-text-main);
+  font-size: 14px;
+}
+
+.demo-login-title {
+  font-weight: 550;
+  font-size: 12px;
+}
+
+.demo-login-text {
+  margin-top: 3px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* =========================================
+   Footer
+========================================= */
+.footer {
+  padding: 100px 0 60px;
+  border-top: 1px solid var(--c-border);
+  text-align: center;
+}
+
+.footer-msg {
+  margin-bottom: 1.5rem;
+  color: var(--c-text-main);
+  font-style: italic;
+  font-size: 1rem;
+  font-family: var(--font-en);
+}
+
+.footer-copy {
+  color: var(--c-text-light);
+  font-size: .75rem;
+}
+
+/* =========================================
+   Login Section
+========================================= */
+.login-wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 24px 60px;
+  background-color: var(--c-bg-sub);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  padding: 60px 40px;
+  border: 1px solid var(--c-border);
+  box-shadow: 0 4px 20px rgba(var(--rgb-black), .02);
+  background: var(--c-bg);
+}
+
+.login-title {
+  margin-bottom: 40px;
+  font-weight: 400;
+  font-size: 2rem;
+  font-family: var(--font-en);
+  text-align: center;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--c-text-light);
+  font-size: .85rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--c-border-input);
+  background: transparent;
+  color: var(--c-text-main);
+  font-size: 1rem;
+  transition: border-color .3s;
+}
+
+.form-input:focus {
+  border-bottom-color: var(--c-text-main);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: var(--c-border-input);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0;
+  bottom: 12px;
+  user-select: none;
+  cursor: pointer;
+  color: var(--c-text-light);
+  font-size: 20px;
+}
+
+.toggle-password:hover {
+  color: var(--c-text-main);
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 32px;
+  padding: 14px;
+  border: none;
+  background-color: var(--c-text-main);
+  color: var(--c-bg);
+  font-size: .95rem;
+  font-family: var(--font-en);
+  letter-spacing: .1em;
+  cursor: pointer;
+  transition: opacity .3s, transform .1s;
+}
+
+.btn-submit:hover {
+  opacity: .8;
+}
+
+.btn-submit:active {
+  transform: scale(.98);
+}
+
+/* =========================================
+   Error Message
+========================================= */
+.error-message {
+  list-style: none;
+  margin-top: 24px;
+  padding: 16px 20px;
+  border: 1px solid var(--c-border-warning);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(var(--rgb-black), .05);
+  background-color: var(--c-warning-bg);
+  font-size: .85rem;
+  line-height: 1.6;
+}
+
+.error-message li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.error-message li::before {
+  position: absolute;
+  top: .15em;
+  left: 0;
+  color: var(--c-accent-orange);
+  font-size: .9rem;
+  content: "⚠";
+}
+
+.font-color__orange {
+  color: var(--c-accent-orange);
+}
+
+.error-message + form {
+  margin-top: 16px;
+}
+
+/* =========================================
+   Responsive
+========================================= */
+@media (max-width: 768px) {
+  :root {
+    --section-spacing: 80px;
+  }
+
+  .pc-only {
+	display: none;
+  }
+
+  .header-inner {
+    padding: 0 16px;
+  }
+
+  .site-title {
+	line-height: 1;
+  }
+
+  .nav {
+    gap: 16px;
+  }
+
+  .nav a {
+    font-size: .8rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .two-column {
+    gap: 40px;
+    grid-template-columns: 1fr;
+  }
+
+  .works-grid {
+    gap: 60px;
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .modal-content {
+    height: 100%;
+	padding: 60px 20px 40px;
+    border-radius: 0;
+    overflow-y: auto;
+  }
+
+  .modal-close {
+    position: fixed;
+	top: 8px;
+    right: 12px;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-title {
+    position: static;
+    top: auto;
+    padding: 20px 0 0;
+    font-size: 1rem;
+  }
+
+  .modal-text {
+    max-height: none;
+    overflow-y: visible;
+    padding: 0;
+  }
+}
