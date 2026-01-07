@@ -16,7 +16,7 @@
 <jsp:include page="/WEB-INF/favicon.jsp" />
 
 <link rel="stylesheet"
-  href="${pageContext.request.contextPath}/static/css/style.css">
+  href="${cp}/static/css/style.css">
 </head>
 
 <body>
@@ -46,7 +46,7 @@
     <div class="container two-column">
       <div class="column-image">
         <img
-          src="${pageContext.request.contextPath}/static/img/about-beach01.webp"
+          src="${cp}/static/img/about-beach01.webp"
           alt="About Image">
       </div>
       <div class="column-text">
@@ -73,13 +73,12 @@
     <div class="container two-column reverse">
       <div class="column-image">
         <img
-          src="${pageContext.request.contextPath}/static/img/training-laptop01.webp"
+          src="${cp}/static/img/training-laptop01.webp"
           alt="Training Image">
       </div>
       <div class="column-text">
         <h2>Training</h2>
-        <p>職業訓練では、Javaを中心としたWebアプリケーション開発を学びました。基本設計・詳細設計を行い、CRUD機能を持つアプリケーションを
-          Servlet / JSP / PostgreSQL を用いて実装しました。</p>
+        <p>職業訓練では、Javaを中心としたWebアプリケーション開発を学びました。基本設計・詳細設計を行い、CRUD機能を持つアプリケーションをServlet / JSP / PostgreSQL を用いて実装しました。</p>
       </div>
     </div>
   </section>
@@ -99,8 +98,9 @@
               <div class="work-card" data-modal="modal-${status.index}">
                 <div class="work-thumb">
                   <img
-                    src="${pageContext.request.contextPath}/<c:out value="${work.imgPath}" />"
-                    alt="<c:out value='${work.title}' />">
+                    src="<c:out value="${cp}/${work.imgPath}" />"
+                    alt="<c:out value='${work.title}' />"
+                    class="work-image">
                 </div>
                 <h3>
                   <c:out value="${work.title}" />
@@ -132,12 +132,13 @@
               <c:when
                 test="${fn:contains(work.imgPath, 'movie-target')}">
                 <div class="video-container">
-                <video src="${pageContext.request.contextPath}/${fn:replace(work.imgPath, '.webp', '.mp4')}"
-  poster="${pageContext.request.contextPath}/${work.imgPath}"
+                <video src="${cp}/${fn:replace(work.imgPath, '.webp', '.mp4')}"
+  poster="${cp}/${work.imgPath}"
   autoplay muted loop playsinline
   class="bg-video">
-                  <img src="${pageContext.request.contextPath}/<c:out value="${work.imgPath}" />"
-                    alt="作品画像">
+                  <img src="<c:out value="${cp}/${work.imgPath}" />"
+                    alt="作品画像"
+                    class="work-image">
                 </video>
                 </div>
               </c:when>
@@ -145,8 +146,9 @@
               <%-- 含まれていない場合 --%>
               <c:otherwise>
                 <img
-                  src="${pageContext.request.contextPath}/<c:out value="${work.imgPath}" />"
-                  alt="<c:out value='${work.title}' />">
+                  src="<c:out value="${cp}/${work.imgPath}" />"
+                  alt="<c:out value='${work.title}' />"
+                  class="work-image">
               </c:otherwise>
             </c:choose>
           </div>
@@ -161,9 +163,9 @@
             <!-- 説明 -->
             <p class="modal-description"><c:out value="${work.description}" /></p>
 
-            <!-- ポジション／担当 -->
+            <!-- 担当 -->
             <c:if test="${not empty work.position}">
-              <h4 class="modal-subtitle">ポジション／担当</h4>
+              <h4 class="modal-subtitle">担当</h4>
               <p class="modal-paragraph"><c:out value="${work.position}" /></p>
             </c:if>
 
@@ -223,7 +225,7 @@
   </footer>
 
   <script
-    src="${pageContext.request.contextPath}/static/js/portfolio.js"></script>
+    src="${cp}/static/js/portfolio.js"></script>
 </body>
 
 </html>

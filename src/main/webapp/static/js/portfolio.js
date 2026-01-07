@@ -68,5 +68,28 @@
       });
     }
 
+	// ===== Image Error Handling =====
+	const worksAppImages = document.querySelectorAll('.work-image');
+
+	worksAppImages.forEach((img) => {
+	  // 1. すでにエラーが発生して読み込みが止まっているかチェック
+	  if (img.complete && img.naturalWidth === 0) {
+	    // すでにエラー状態なら、即座に関数を実行
+	    handleImgError.call(img);
+	  } else {
+	    // まだ読み込み中、またはこれから読み込むならイベントを登録
+	    img.addEventListener('error', handleImgError, { once: true });
+	  }
+
+	  function handleImgError() {
+	    const width = this.getAttribute('width') || this.clientWidth || 300;
+	    const height = this.getAttribute('height') || this.clientHeight || 200;
+
+	    this.src = `https://placehold.co/${width}x${height}?text=No+Image`;
+
+	    // イベントを削除
+	    this.removeEventListener('error', handleImgError);
+	  }
+	});
   });
 })();

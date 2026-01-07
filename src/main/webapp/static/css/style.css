@@ -48,8 +48,10 @@
   --content-width: 1000px;
   --section-spacing: 120px;
 
-  /* Modalでのガタつき対策 */
-  scrollbar-gutter: stable;
+  /* Modal */
+  --modal-max-height: 85dvh;
+
+  scrollbar-gutter: stable; /* Modalでのガタつき対策 */
 }
 
 * {
@@ -351,6 +353,7 @@ img {
   position: relative;
   isolation: isolate; /* z-indexの影響範囲の制限 */
   width: 100%;
+  max-height: var(--modal-max-height);
   overflow: hidden;
   border-radius: 10px;
   background: var(--c-bg-sub);
@@ -376,7 +379,7 @@ img {
   border: none;
   background: none;
   color: var(--c-modal-close);
-  font-size: 24px;
+  font-size: 33px;
   line-height: 1;
   cursor: pointer;
 }
@@ -416,7 +419,7 @@ img {
 }
 
 .modal-text {
-  max-height: 60dvh;
+  max-height: var(--modal-max-height);
   padding: 0 16px 45px 0;
   overflow-y: auto;
 }
@@ -659,6 +662,7 @@ img {
 @media (max-width: 768px) {
   :root {
     --section-spacing: 80px;
+	--modal-max-height: 100dvh;
   }
 
   .pc-only {
