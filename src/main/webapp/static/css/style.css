@@ -22,23 +22,28 @@
 ========================================= */
 :root {
   /* Colors */
+  --c-main: #007bff;
+  --c-main-light: #e6f2ff;
+  --c-main-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
   --c-bg: #ffffff;
-  --c-bg-sub: #fafafa;
-  --c-bg-video: #333;
+  --c-bg-sub: #f8f9fa;
+  --c-bg-video: #333333;
   --c-warning-bg: #fff8e1;
-  --c-text-main: #333333;
-  --c-text-light: #888888;
+  --c-text-main: #2d3436;
+  --c-text-light: #636e72;
   --c-text-muted: #aaaaaa;
   --c-text-link: #ffffff;
+  --c-text-skills: #82aaff;
   --c-border: #eeeeee;
   --c-border-input: #dddddd;
   --c-border-warning: #f0c36d;
   --c-border-dark: #e5e5e5;
-  --c-accent-orange: #e67e22;
+  --c-accent-orange: #ff7675;
   --c-modal-close: #666666;
   --c-modal-close-hover: #000000;
   --rgb-bg: 255, 255, 255;
   --rgb-black: 0, 0, 0;
+  --rgb-blue-gray: 40, 60, 90;
 
   /* Fonts */
   --font-base: "Noto Sans JP", sans-serif;
@@ -51,7 +56,8 @@
   /* Modal */
   --modal-max-height: 85dvh;
 
-  scrollbar-gutter: stable; /* Modalでのガタつき対策 */
+  /* Modalでのガタつき対策 */
+  scrollbar-gutter: stable;
 }
 
 * {
@@ -159,10 +165,11 @@ img {
 .nav a {
   color: var(--c-text-light);
   font-size: .9rem;
+  user-select: none;
 }
 
 .nav a:hover {
-  color: var(--c-text-main);
+  color: var(--c-main);
 }
 
 /* =========================================
@@ -180,6 +187,10 @@ img {
 
 .hero-title {
   margin-bottom: 2rem;
+  background: var(--c-main-gradient);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-weight: 450;
   font-size: 4rem;
   font-family: var(--font-en);
@@ -255,10 +266,10 @@ img {
 
 .skills-list li {
   padding: 6px 16px;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-text-skills);
   border-radius: 999px;
-  background-color: var(--c-bg-sub);
-  color: var(--c-text-main);
+  color: var(--c-text-skills);
+  font-weight: 500;
   font-size: .8rem;
 }
 
@@ -284,7 +295,8 @@ img {
 }
 
 .work-card:hover {
-  box-shadow: 0 10px 30px rgba(var(--rgb-black), .08);
+  border-color: var(--c-main);
+  box-shadow: 0 10px 30px rgba(var(--rgb-blue-gray), .06);
 }
 
 .work-thumb {
@@ -325,13 +337,12 @@ img {
    Modal Base
 ========================================= */
 .modal {
-  /* dialog標準スタイルのリセット */
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  padding: 0;
   border: none;
   background: transparent;
-  padding: 0;
-  max-width: 900px;
-  width: 90%;
-  margin: auto;
 }
 
 /* オーバーレイ */
@@ -351,10 +362,10 @@ img {
 ========================================= */
 .modal-content {
   position: relative;
-  isolation: isolate; /* z-indexの影響範囲の制限 */
   width: 100%;
   max-height: var(--modal-max-height);
   overflow: hidden;
+  isolation: isolate; /* z-indexの影響範囲の制限 */
   border-radius: 10px;
   background: var(--c-bg-sub);
   overscroll-behavior: contain; /* 背景スクロールを防止 */
@@ -413,9 +424,9 @@ img {
 }
 
 .bg-video {
+  z-index: -1;
   width: calc(100% + 1px);
   height: 100%;
-  z-index: -1;
 }
 
 .modal-text {
@@ -468,15 +479,17 @@ img {
 
 .modal-links a {
   padding: 8px 14px;
-  border: 1px solid var(--c-border-input);
-  border-radius: 4px;
-  color: var(--c-text-main);
+  border: 1px solid var(--c-main);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--c-main);
   font-size: .75rem;
+  user-select: none;
   transition: background .2s, color .2s;
 }
 
 .modal-links a:hover {
-  background: var(--c-text-main);
+  background: var(--c-main);
   color: var(--c-text-link);
 }
 
@@ -587,10 +600,10 @@ img {
   position: absolute;
   right: 0;
   bottom: 12px;
-  user-select: none;
-  cursor: pointer;
   color: var(--c-text-light);
   font-size: 20px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .toggle-password:hover {
@@ -607,6 +620,7 @@ img {
   font-size: .95rem;
   font-family: var(--font-en);
   letter-spacing: .1em;
+  user-select: none;
   cursor: pointer;
   transition: opacity .3s, transform .1s;
 }
@@ -662,11 +676,11 @@ img {
 @media (max-width: 768px) {
   :root {
     --section-spacing: 80px;
-	--modal-max-height: 100dvh;
+    --modal-max-height: 100dvh;
   }
 
   .pc-only {
-	display: none;
+    display: none;
   }
 
   .header-inner {
@@ -674,7 +688,7 @@ img {
   }
 
   .site-title {
-	line-height: 1;
+    line-height: 1;
   }
 
   .nav {
@@ -707,14 +721,14 @@ img {
 
   .modal-content {
     height: 100%;
-	padding: 60px 20px 40px;
-    border-radius: 0;
+    padding: 60px 20px 40px;
     overflow-y: auto;
+    border-radius: 0;
   }
 
   .modal-close {
     position: fixed;
-	top: 8px;
+    top: 8px;
     right: 12px;
   }
 
@@ -731,7 +745,7 @@ img {
 
   .modal-text {
     max-height: none;
-    overflow-y: visible;
     padding: 0;
+    overflow-y: visible;
   }
 }
